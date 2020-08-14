@@ -19,7 +19,8 @@ def plotKline(sz):
 
     from matplotlib import pyplot as plt
     sz = sz[::2]  # 绘制第一支股票的k线图
-    fig,ax = plt.subplots()
+    fig = plt.figure(facecolor='#07000d',figsize=(15,10))
+    ax = plt.subplot2grid((4,4),(1,0),rowspan=4,colspan=4,facecolor='#07000d')
     thick_width = 0.7
     thin_width = 0.1
     price_up = sz[sz['close'] >= sz['open']]  # 股票价格上涨
@@ -33,9 +34,16 @@ def plotKline(sz):
     plt.bar(price_down['trade_date'],price_down['high'] - price_down['open'],thin_width,bottom=price_down['open'],color='r')
     plt.bar(price_down['trade_date'],price_down['low'] - price_down['close'],thin_width,bottom=price_down['close'],color='r')
 
-    plt.ylabel('Price')
-    plt.title('k plot of one stock')
     fig.autofmt_xdate()
     fig.tight_layout()
-
+    ax.grid(True,color='w')
+    ax.yaxis.label.set_color('w')
+    ax.spines['bottom'].set_color('#5998ff')
+    ax.spines['top'].set_color('#5998ff')
+    ax.spines['left'].set_color('#5998ff')
+    ax.spines['right'].set_color('#5998ff')
+    ax.tick_params(axis='y', colors='w')
+    ax.tick_params(axis='x', colors='w')
+    plt.ylabel('Price')
+    plt.title('k plot of one stock')
     plt.show()
